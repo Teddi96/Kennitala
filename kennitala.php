@@ -6,7 +6,6 @@
  * http://www.skra.is/thjodskra/um-thjodskra-/um-kennitolur/
  */ 
 
-
 date_default_timezone_set('America/Los_Angeles');
 
 function kennitala($tala) {
@@ -35,18 +34,49 @@ function kennitala($tala) {
 		return "Ógild Kennitala";
 	}
 	
+
+	/* Hér á koma útreikningar 
+	 * á öryggistöluni.
+	 */
+	
+
+
 	// seinasti tölustafurinn merkir öld fæðingar
 	// Athuga aðeins hvort 8, 9 eða 0 er nuna. 
-	// TO DO: 
-	// * Match to year given in date
 	
-	$century = mb_substr($tala, 9, 10);
+	$century = mb_substr($tala, 9, 10); // Seinasti stafur í kennitölu
+	$year = mb_substr($tala, -6, -4); // Fæðingarár (dæmi: 65 fyrir 1965)
+	$d = DateTime::createFromFormat('y', $year); // Til að breyta 65 í 1965
+	$year = $d->format('Y'); // Til að geta notað 1965
 	
-	if($century == 8 Xor $century == 9 Xor $century == 0) {
-		return "Gild Kennitala";
-	} else {
-		return "Ógild Kennitala";
+	// Ef 19. öld. 
+	if($century == 8) {
+		if(preg_match('/18../', $year)) {
+			return "Gild kennitala"; 
+		} else {
+			return "Ógild Kennitala"; 
+		}
 	}
+
+	// Ef 20. öld
+	elseif($century == 9) {
+		if(preg_match('/19../', $year)) {
+			return "Gild Kennitala"; 
+		} else {
+			return "Ógild Kennitala"; 
+		}
+	}
+
+	// Ef 21. öld. 
+	elseif($century == 0) {
+		if(preg_match('/20../', $year)) {
+			return "Gild Kennitala"; 
+		} else {
+			return "Ógild Kennitala"; 
+		}
+	}  
+
+	
 	
 }
 
@@ -54,6 +84,6 @@ function kennitala($tala) {
 $string = "0809962849";
 
 $done = kennitala($string);
-echo $done;
+print_r($done);
 
 ?>
