@@ -2,7 +2,6 @@
 /*
  * PHP function til að athuga hvort
  * Kennitala sé rétt (gild) eða ekki 
- * Notast við ákveðnar formúlu til þess
  * http://www.skra.is/thjodskra/um-thjodskra-/um-kennitolur/
  */ 
 
