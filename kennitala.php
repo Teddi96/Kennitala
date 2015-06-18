@@ -80,9 +80,4 @@ function kennitala($tala) {
 }
 
 
-$string = "0809962849";
-
-$done = kennitala($string);
-print_r($done);
-
 ?>
