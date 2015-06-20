@@ -43,9 +43,7 @@ function kennitala($tala) {
 
 	/* Array fyrir modulus 11 reikning */
 	$weight = array( 2, 3, 4, 5, 6, 7,
-			 2, 3, 4, 5, 6, 7, 
-			 2, 3, 4, 5, 6, 7,
-			 2, 3, 4, 5, 6, 7);
+			 2, 3); 
 	
 	// Fyrstu 8 tolurnar
 	$first_8 = mb_substr($tala, 0,8);
