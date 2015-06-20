@@ -8,6 +8,13 @@
 date_default_timezone_set('America/Los_Angeles');
 
 function kennitala($tala) {
+	// ath lengd 
+	if(strlen($tala) == 10) {
+		$tala; 
+	} else {
+		return "Ogild kennitala"; 
+	}
+
 	// d = dagur, m = manudur, y = ar (2 tolurstafir)
 	$format = 'dmy';	
 
