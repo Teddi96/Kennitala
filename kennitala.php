@@ -9,9 +9,7 @@ date_default_timezone_set('America/Los_Angeles');
 
 function kennitala($tala) {
 	// ath lengd 
-	if(strlen($tala) == 10) {
-		$tala; 
-	} else {
+	if(strlen($tala) != 10) {
 		return "Ogild kennitala"; 
 	}
 
@@ -25,18 +23,14 @@ function kennitala($tala) {
 	$d = DateTime::createFromFormat($format, $date);
 	
 	// True or False athugun, villa ef ogild
-	if($d && $d->format($format) == $date) {
-		$tala;
-	} else {
+	if($d && $d->format($format) != $date) {
 		return "Ogild Kennitala";
 	}
 	
 	// next two fra og med 20. 
 	$safe = mb_substr($tala, -4, -2);
 	
-	if($safe >= 20) {
-		$tala;
-	} else {
+	if($safe < 20) {
 		return "Ogild Kennitala";
 	}
 	
@@ -45,13 +39,13 @@ function kennitala($tala) {
 	$weight = array( 2, 3, 4, 5, 6, 7,
 			 2, 3); 
 	
-	// Fyrstu 8 tolurnar
+	// First 8 to calculate the 9th number
 	$first_8 = mb_substr($tala, 0,8);
 	
-	// Oryggistalan
+	// First 9 that we were given
 	$first_9 = mb_substr($tala, 0, 9);
 	
-	// Turn it around.. Hentugara
+	// Turn it around.. 
 	$reverse = strrev( $first_8 );
 	
 	for ( $i = 0, $sum = 0; $i < strlen( $reverse ); $i++ ) {
@@ -75,20 +69,18 @@ function kennitala($tala) {
 			break;
 	} 
 
-	if( $result == $first_9 ) {
-		$tala;
-	} else {
+	if( $result != $first_9 ) {
 		return "Ogild Kennitala";
 	}  
 
 
-	// seinasti tolustafurinn merkir old faedingar
-	$century = mb_substr($tala, 9, 10); // Seinasti stafur i kennitolu
-	$year = mb_substr($tala, -6, -4); // Faedingarar (i.e: 65 fyrir 1965)
-	$d = DateTime::createFromFormat('y', $year); // Til ad breyta 65 i 1965
-	$year = $d->format('Y'); // Til ad geta notad 1965
+	// The last number is the century
+	$century = mb_substr($tala, 9, 10); // The last number
+	$year = mb_substr($tala, -6, -4); // Year of birth 2 digit format
+	$d = DateTime::createFromFormat('y', $year); // Change 2 digit format to 4 digit format
+	$year = $d->format('Y'); // So we can use the 4 digit format
 	
-	// Ef 19. old. 
+	// 19 century
 	if($century == 8) {
 		if(preg_match('/18../', $year)) {
 			return "Gild kennitala"; 
@@ -97,7 +89,7 @@ function kennitala($tala) {
 		}
 	}
 
-	// Ef 20. old
+	// 20 century
 	elseif($century == 9) {
 		if(preg_match('/19../', $year)) {
 			return "Gild Kennitala"; 
@@ -106,7 +98,7 @@ function kennitala($tala) {
 		}
 	}
 
-	// Ef 21. old. 
+	// 21 Century 
 	elseif($century == 0) {
 		if(preg_match('/20../', $year)) {
 			return "Gild Kennitala"; 
